@@ -553,26 +553,25 @@ def main() -> None:
 
    if selected_bets:
       st.write(f"選択されたベットタイプ: {', '.join(selected_bets)}")
+      simulator = BetSimulator(selected_df)
+
+      # ベットの入力と追加
+      for bet_type in selected_bets:
+         st.write(f"🏇 {bet_type}")
+         horses = st.multiselect(f"{bet_type}のベットする馬の人気番号を選択してください", list(range(1, 19)), key=f"{bet_type}_bet_horse")
+         amount = st.number_input(f"{bet_type}のベット金額を入力してください", min_value=100, max_value=100000, step=100, value=100, key=f"{bet_type}_bet_amount")
+         if st.button(f"{bet_type}ベットを追加", key=f"{bet_type}_button"):
+            simulator.add_bet(bet_type, horses, int(amount))
+
+      simulator.display_bet_summary()
+
+      if st.button("シミュレーションを実行"):
+         result_df, total_profit_list = simulator.run_simulation(selected_bets)
+         st.dataframe(result_df)
+         final_profit = sum(total_profit_list)
+         st.write(f'##### 全体収支: {int(final_profit)}円')
    else:
       st.warning("⚠️ ベットタイプを選択してください")
-
-   simulator = BetSimulator(selected_df)
-
-   # ベットの入力と追加
-   for bet_type in selected_bets:
-      st.write(f"🏇 {bet_type}")
-      horses = st.multiselect(f"{bet_type}のベットする馬の人気番号を選択してください", list(range(1, 19)), key=f"{bet_type}_bet_horse")
-      amount = st.number_input(f"{bet_type}のベット金額を入力してください", min_value=100, max_value=100000, step=100, value=100, key=f"{bet_type}_bet_amount")
-      if st.button(f"{bet_type}ベットを追加", key=f"{bet_type}_button"):
-         simulator.add_bet(bet_type, horses, int(amount))
-
-   simulator.display_bet_summary()
-
-   if st.button("シミュレーションを実行"):
-      result_df, total_profit_list = simulator.run_simulation(selected_bets)
-      st.dataframe(result_df)
-      final_profit = sum(total_profit_list)
-      st.write(f'##### 全体収支: {int(final_profit)}円')
 
    # 最適化セクション
    st.subheader("⚖️ 最適化(現在3連複のみ実装済)")
