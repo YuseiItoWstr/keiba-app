@@ -324,9 +324,9 @@ class BetSimulator:
          
          hit_rate = self.df[f'{bet_type}_的中'].value_counts(normalize=True, dropna=True) * 100
          if '⭕️' in hit_rate:
-               st.write(f'{bet_type}_合計収支: {int(total_profit)}円, {bet_type}_的中率: {hit_rate["⭕️"]:.2f}%')
+            st.write(f'{bet_type}_合計収支: {int(total_profit)}円, {bet_type}_的中率: {hit_rate["⭕️"]:.2f}%')
          else:
-               st.write(f'{bet_type}_合計収支: {int(total_profit)}円, {bet_type}_的中率: 0.00%')
+            st.write(f'{bet_type}_合計収支: {int(total_profit)}円, {bet_type}_的中率: 0.00%')
       
       return self.df, total_profit_list
 
@@ -400,26 +400,26 @@ class BetOptimizer:
 
       for bet_size in range(3, 11):
          for bet_num in itertools.combinations(number_range, bet_size):
-               bet_count = math.comb(len(bet_num), 3)
-               bet_amount = bet_count * self.amount
+            bet_count = math.comb(len(bet_num), 3)
+            bet_amount = bet_count * self.amount
 
-               # 利益と結果を計算
-               profit_list, result_list = self._calculate_profits(bet_num, bet_amount)
+            # 利益と結果を計算
+            profit_list, result_list = self._calculate_profits(bet_num, bet_amount)
 
-               # 的中率を計算
-               hit_count = result_list.count('⭕️')
-               total_bets = len([r for r in result_list if r in ['⭕️', '✕']])
-               hit_rate = (hit_count / total_bets) * 100 if total_bets > 0 else 0
+            # 的中率を計算
+            hit_count = result_list.count('⭕️')
+            total_bets = len([r for r in result_list if r in ['⭕️', '✕']])
+            hit_rate = (hit_count / total_bets) * 100 if total_bets > 0 else 0
 
-               # 的中率が閾値を超えている場合、結果を追加
-               if hit_rate >= self.threshold:
-                  total_profit = sum(profit_list)
-                  results.append({
-                     'bet_num': bet_num,
-                     'bet_size': bet_size,
-                     'total_profit': total_profit,
-                     'hit_rate': hit_rate
-                  })
+            # 的中率が閾値を超えている場合、結果を追加
+            if hit_rate >= self.threshold:
+               total_profit = np.nansum(profit_list)
+               results.append({
+                  'bet_num': bet_num,
+                  'bet_size': bet_size,
+                  'total_profit': total_profit,
+                  'hit_rate': hit_rate
+               })
 
       # 合計収支でソートし、上位10個を返す
       return sorted(results, key=lambda x: float(x['total_profit']) \
@@ -443,9 +443,9 @@ class BetOptimizer:
          first, second, third = row['1着_人気'], row['2着_人気'], row['3着_人気']
 
          if pd.isna(row[f'{self.bet_type}_払戻']):
-               profit_list.append(np.nan)
-               result_list.append(np.nan)
-               continue
+            profit_list.append(np.nan)
+            result_list.append(np.nan)
+            continue
 
          payout_value = row[f'{self.bet_type}_払戻'] * self.amount / 100
 
@@ -586,11 +586,11 @@ def main() -> None:
       
       if top_results:
          top_df = pd.DataFrame({
-               '順位': list(range(1, len(top_results) + 1)),
-               '賭ける人気番号のセット': [result['bet_num'] for result in top_results],
-               '選択頭数': [result['bet_size'] for result in top_results],
-               '合計収支': [int(result['total_profit']) if not np.isnan(result['total_profit']) else 0 for result in top_results],
-               '的中率': [f"{result['hit_rate']:.2f}%" for result in top_results]
+            '順位': list(range(1, len(top_results) + 1)),
+            '賭ける人気番号のセット': [result['bet_num'] for result in top_results],
+            '選択頭数': [result['bet_size'] for result in top_results],
+            '合計収支': [result['total_profit'] for result in top_results],
+            '的中率': [f"{result['hit_rate']:.2f}%" for result in top_results]
          })
          st.dataframe(top_df)
       else:
