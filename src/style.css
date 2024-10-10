@@ -1,0 +1,161 @@
+/* アプリケーションビューのコンテナのパディングを調整 */
+.appview-container .main .block-container {
+    padding-top: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    padding-bottom: 1rem;
+}
+/* レポートビューのコンテナのパディングを調整 */
+.reportview-container {
+    padding-top: 0rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    padding-bottom: 0rem;
+}
+.stApp {
+    z-index: -1;
+    background-image: url('https://www.beiz.jp/images_P/white/white_00023.jpg');
+    background-size: cover;
+    background-position: center;
+}
+/* ヘッダーを非表示にして、高さを0に設定 */
+header {
+    visibility: hidden;
+    height: 0%;
+}
+/* フッターを非表示にして、高さを0に設定 */
+footer {
+    visibility: hidden;
+    height: 0%;
+}
+/* スライドインアニメーションのキーフレーム定義 */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+/* メインコンテンツのスタイルを設定、スライドインアニメーションを追加 */
+.main {
+    padding: 2rem;
+    animation: slideIn 1.5s ease-in-out;
+}
+.image-link {
+    display: inline-block;
+    width: 100px;
+    height: auto;
+    transition: transform 0.5s ease;
+    overflow: hidden;
+ }
+ .image-link img {
+    width: 100%;
+    height: auto;
+ }
+ .image-link:hover {
+    transform: scale(1.2);
+}
+/* h1要素のスタイルを設定 */
+h1 {
+    color: #126a5d;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    text-align: center;
+}
+/* h4要素のスタイルとスライドインアニメーションを設定 */
+h4 {
+    font-size: 1.5rem;
+    color: #126a5d;
+    text-align: center;
+    font-style: italic;
+    margin-top: 2rem;
+}
+/* h5要素のスタイルとスライドインアニメーションを設定 */
+h5 {
+    font-size: 1.1rem;
+    color: #6c757d;
+    text-align: center;
+    font-style: italic;
+    margin-top: 2rem;
+}
+/* st.codeのCSSを変更 */
+pre {
+    color: black;
+    text-align: center;
+    margin-top: 2rem;
+}
+/* Selectbox、TextInput、Multiselectのスタイルを設定 */
+.stSelectbox, .stTextInput, .stMultiSelect, .stNumberInput {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.5s ease;
+}
+/* DataFrame表示エリアのスタイルを設定 */
+.stDataFrame {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    width: 100%;
+    transition: box-shadow 0.5s ease;
+}
+/* DataFrame表示エリアのホバー時のスタイルを設定 */
+.stDataFrame:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+/* ボタンのスタイルを設定 */
+.stButton>button {
+    position: relative;
+    overflow: hidden;  /* コンテンツのオーバーフローを隠す */
+    background-color: #126a5d;  /* 背景色を青に設定 */
+    color: white;  /* テキスト色を白に設定 */
+    font-size: 1rem;  /* フォントサイズを設定 */
+    font-weight: 600;  /* フォントの太さを設定 */
+    border-radius: 5px;  /* 角を丸く設定 */
+    padding: 0.5rem 1rem;  /* 内側の余白を設定 */
+    border: none;  /* 枠線を削除 */
+    cursor: pointer;  /* カーソルをポインタに設定 */
+    transition: transform 0.5s ease, box-shadow 0.5s ease, background-color 0.5s ease;  /* トランジションを設定 */
+}
+/* ボタンスタイルを設定 */
+/* 背景スキュー効果 */
+.stButton>button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -130%;
+    background-color: #6abf1b;  
+    width: 120%;
+    height: 100%;
+    transform: skewX(-25deg);  /* 背景をスキューさせる */
+    transition: all 0.3s ease;
+    z-index: -1;  /* テキストの背後に表示 */
+    color: white;
+}
+/* ホバー時の背景アニメーション */
+.stButton>button:hover::before {
+    left: -10%;  /* 背景が右に移動 */
+    color: white;
+}
+/* ボタンのホバー時のスタイルを設定 */
+.stButton>button:hover {
+    transform: scale(1.05);  /* ホバー時に拡大 */
+    background-color: #6abf1b;  
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);  /* 影を追加 */
+    color: white;
+}
+/* ボタンのクリック時のスタイルを設定 */
+.stButton>button:active {
+    transform: scale(1);  /* クリック時に縮小 */
+    color: white
+}
+/* ボタンのフォーカス時のスタイルを設定 */
+.stButton>button:focus {
+    color: white !important;
+}
