@@ -18,11 +18,6 @@
     background-size: cover;
     background-position: center;
 }
-/* ヘッダーを非表示にして、高さを0に設定 */
-header {
-    visibility: hidden;
-    height: 0%;
-}
 /* フッターを非表示にして、高さを0に設定 */
 footer {
     visibility: hidden;
