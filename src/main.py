@@ -106,15 +106,14 @@ class PageSetup:
       link_url = "https://www.jra.go.jp/datafile/seiseki/replay/2024/g1.html"
       try:
          with open(self.img_file, "rb") as image_file:
-               encoded_image = base64.b64encode(image_file.read()).decode()
+            encoded_image = base64.b64encode(image_file.read()).decode()
          st.markdown(f'''
-               <a href="{link_url}" target="_blank" class="image-link">
-                  <img src="data:image/png;base64,{encoded_image}" alt="JRA Logo">
-               </a>
+            <a href="{link_url}" target="_blank" class="image-link">
+                  <img src="data:image/gif;base64,{encoded_image}" alt="JRA Logo">
+            </a>
          ''', unsafe_allow_html=True)
       except Exception as e:
-         st.error("ロゴ画像の表示中にエラーが発生しました")
-         st.error(f"エラー内容: {str(e)}")
+         st.error(f"エラーが発生しました: {e}")
 
    def _display_title(self) -> None:
       """
@@ -472,7 +471,7 @@ def main() -> None:
    src_dir = os.path.dirname(__file__)
    data_path = os.path.join(src_dir, '../data/g1_result_haraimodoshi.csv')
    css_file = os.path.join(src_dir, 'style.css')
-   img_file = os.path.join(src_dir, '../img/logo_jra.jpg')
+   img_file = os.path.join(src_dir, '../img/keiba.gif')
 
    # ページセットアップ
    page_setup = PageSetup(css_file, img_file)
