@@ -527,9 +527,14 @@ def main() -> None:
    st.dataframe(selected_df)
 
    # データ可視化セクション
-   st.subheader("📊 レースデータの可視化")
-   show_order = st.checkbox("🏆️ 着順の分布を見る")
-   show_payouts = st.checkbox("💰️ 払戻の分布を見る")
+   # 2つのカラムを作成
+   col1, col2 = st.columns(2)
+   # 左のカラムに着順のチェックボックス
+   with col1:
+      show_order = st.checkbox("🏆️ 着順の分布を見る")
+   # 右のカラムに払戻のチェックボックス
+   with col2:
+      show_payouts = st.checkbox("💰️ 払戻の分布を見る")
 
    if not show_order and not show_payouts:
       st.info("ℹ️ 可視化するデータを選択してください")
