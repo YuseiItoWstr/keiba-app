@@ -8,6 +8,7 @@ import math
 import base64
 import numpy as np
 import itertools
+import japanize_matplotlib # type: ignore  # noqa: F401
 from typing import List, Dict, Any, Tuple, Union
 
 class DataLoader:
