@@ -22,6 +22,7 @@
 header {
     visibility: hidden;
     height: 0%;
+    z-index: -1;
 }
 /* フッターを非表示にして、高さを0に設定 */
 footer {
